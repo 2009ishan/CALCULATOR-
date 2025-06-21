@@ -1,0 +1,132 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iPhone Calculator Clone</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="btn light-gray" onclick="clearDisplay()">AC</button>
+      <button class="btn light-gray" onclick="backspace()">⌫</button>
+      <button class="btn light-gray" onclick="appendOperator('%')">%</button>
+      <button class="btn orange" onclick="appendOperator('/')">÷</button>
+
+      <button class="btn dark-gray" onclick="appendNumber('7')">7</button>
+      <button class="btn dark-gray" onclick="appendNumber('8')">8</button>
+      <button class="btn dark-gray" onclick="appendNumber('9')">9</button>
+      <button class="btn orange" onclick="appendOperator('*')">×</button>
+
+      <button class="btn dark-gray" onclick="appendNumber('4')">4</button>
+      <button class="btn dark-gray" onclick="appendNumber('5')">5</button>
+      <button class="btn dark-gray" onclick="appendNumber('6')">6</button>
+      <button class="btn orange" onclick="appendOperator('-')">−</button>
+
+      <button class="btn dark-gray" onclick="appendNumber('1')">1</button>
+      <button class="btn dark-gray" onclick="appendNumber('2')">2</button>
+      <button class="btn dark-gray" onclick="appendNumber('3')">3</button>
+      <button class="btn orange" onclick="appendOperator('+')">+</button>
+
+      <button class="btn dark-gray zero" onclick="appendNumber('0')">0</button>
+      <button class="btn dark-gray" onclick="appendNumber('.')">.</button>
+      <button class="btn orange" onclick="calculate()">=</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+<style>body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.calculator {
+  width: 320px;
+  background: #000;
+  border-radius: 40px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.display {
+  color: white;
+  font-size: 3rem;
+  text-align: right;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  min-height: 60px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  font-size: 1.5rem;
+  padding: 20px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.light-gray {
+  background: #d4d4d2;
+  color: black;
+}
+
+.dark-gray {
+  background: #505050;
+}
+
+.orange {
+  background:#FFA500
+</style><script>const display = document.getElementById("display");
+
+function appendNumber(num) {
+  if (display.textContent === "0") {
+    display.textContent = num;
+  } else {
+    display.textContent += num;
+  }
+}
+
+function appendOperator(op) {
+  const lastChar = display.textContent.slice(-1);
+  if ("+-*/%".includes(lastChar)) return;
+  display.textContent += op;
+}
+
+function clearDisplay() {
+  display.textContent = "0";
+}
+
+function backspace() {
+  if (display.textContent.length > 1) {
+    display.textContent = display.textContent.slice(0, -1);
+  } else {
+    display.textContent = "0";
+  }
+}
+
+function calculate() {
+  try {
+    let expression = display.textContent.replace(/÷/g, "/").replace(/×/g, "*");
+    display.textContent = eval(expression);
+  } catch {
+    display.textContent = "Error";
+  }
+}
+</script>
